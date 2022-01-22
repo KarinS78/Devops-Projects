@@ -1,0 +1,86 @@
+# Assinged by KARIN SCHWEARTZ
+
+# --------- Start Of Functions --------------
+# Print Current State Of The Board
+def printBoard(Board):
+    for i in range(len(Board)):
+      print(Board[i])
+
+# Check if the numbers by the user are correct and bitween 0-2
+def checkCell(Board, playerRow, playerColumn):
+  if playerColumn >= 0 and playerColumn <= 2 and playerRow >= 0 and playerRow <= 2 and Board[playerRow][playerColumn] == "_":
+    return True
+  return False
+
+# Ceck If There Is a Victory
+def isVictory(Board):
+    if (Board[0][0] == Board[1][1] == Board[2][2] != '_'): #אלכסון שמאל לימין
+        return True
+    elif (Board[0][2] == Board[1][1] == Board[2][0] != '_'): #אלכסון ימין לשמאל
+        return True
+    elif (Board[0][0] == Board[1][0] == Board[2][0] != '_'): #טור 0
+        return True
+    elif (Board[0][1] == Board[1][1] == Board[2][1] != '_'): #טור 1
+        return True
+    elif (Board[0][2] == Board[1][2] == Board[2][2] != '_'): #טור 2
+        return True
+    elif (Board[0][0] == Board[0][1] == Board[0][2] != '_'): #שורה 1
+        return True
+    elif (Board[1][0] == Board[1][1] == Board[1][2] != '_'): #שורה 2
+        return True
+    elif (Board[2][0] == Board[2][1] == Board[2][2] != '_'): #שורה 3
+        return True
+    else:
+        return False
+# The Game Itself
+def game():
+    # The board
+    Board = [["_", "_", "_"], ["_", "_", "_"], ["_", "_", "_"]]
+
+    # Define init trun
+    turn = 0
+    print("welcome to the game of tic tac toe! \nplease choose your row and column between 0-2")
+    printBoard(Board)
+
+    while True:
+      #the player enter inputs
+      playerRow = int(input("Select a row: "))
+      playerColumn = int(input("Select a column: "))
+
+      #enter input from the player
+      if checkCell(Board, playerRow, playerColumn):
+          turn = turn + 1  # if turn is double so 0 play
+          if turn % 2 == 0:
+              print("Current turn -> 0")
+              Board[playerRow][playerColumn] = "X"
+          else:
+              print("Current turn -> X")
+              Board[playerRow][playerColumn] = "0"
+      else:
+          print("Illigal inputs, try again!!!!!!!")
+          continue
+
+      # Print Current Board
+      printBoard(Board)
+
+      # Check Who is Victorious
+      if isVictory(Board) == True:
+          print(Board[playerRow][playerColumn] + " is the winner!")
+          break
+
+      # All roind are over without winner -> tie
+      elif turn == 9:
+        print("\nGame Over.\n")
+        print("It's a Tie!!")
+        break
+
+# --------- End Of Functions --------------
+
+
+# ---------Main Program --------------
+while True:
+    initGame = input("Do want to play Again? Press y/Y to start, else to quit")
+    if initGame == "y" or initGame == "Y":
+        game()
+    else:
+        print("See you again :-)")
