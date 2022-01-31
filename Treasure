@@ -14,11 +14,13 @@ def numFile(Treasure):
                 Treasure.write(str(num))
 
 seekk=-1
+counter=0
 def find(Tresure):
     with open(Tresure) as map:
         while True:
             findTreasure=int(input("Where you want to move? [1- forward 2-backwards]"))
             move= int(input("where do you want to go?"))
+            counter= counter +1
             global seekk
             if (findTreasure == 1 ):
                 map.seek(map.tell()+move)
@@ -28,7 +30,9 @@ def find(Tresure):
 
                 if check(Tresure):
                     print("you found the treasure!")
+                    print(f"it took you {counter} tries")
                     break
+
                 continue
             elif (findTreasure == 2):
                 map.seek(map.tell() - move)
@@ -38,6 +42,7 @@ def find(Tresure):
 
                 if check(Tresure):
                     print("you found the treasure!")
+                    print(f"it took you {counter} tries")
                     break
                 continue
             else:
