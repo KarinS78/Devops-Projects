@@ -1,0 +1,60 @@
+import random
+import string
+
+def numFile(Treasure):
+    with open(Treasure,'w+') as Treasure:
+        for num in range(10):
+            rndnum= random.randint(1,20)
+            for singleNum in range(rndnum):
+                Treasure.write(str(num))
+        Treasure.write("TREASURE")
+        for num in range(9,-1,-1):
+            rndnum=random.randint(1,20)
+            for singleNum in range(rndnum):
+                Treasure.write(str(num))
+
+seekk=-1
+def find(Tresure):
+    with open(Tresure) as map:
+        while True:
+            findTreasure=int(input("Where you want to move? [1- forward 2-backwards]"))
+            move= int(input("where do you want to go?"))
+            global seekk
+            if (findTreasure == 1 ):
+                map.seek(map.tell()+move)
+                seekk = map.tell()
+                check(Tresure)
+                print(f"moving forward {move}")
+
+                if check(Tresure):
+                    print("you found the treasure!")
+                    break
+                continue
+            elif (findTreasure == 2):
+                map.seek(map.tell() - move)
+                seekk = map.tell()
+                check(Tresure)
+                print(f"moving backwards {move}")
+
+                if check(Tresure):
+                    print("you found the treasure!")
+                    break
+                continue
+            else:
+                print("enter your choice again")
+                continue
+
+def check(Tresure):
+    with open(Tresure) as map:
+        treasureList = ["T", "R", "E", "A", "S", "U", "R", "E"]
+        #map.seek(seekk)
+        value = map.read()
+        value = value[seekk]
+        if value in treasureList:
+            return True
+        else:
+            return False
+
+
+numFile(r"C:\Users\karins\Desktop\Tresure.txt")
+find(r"C:\Users\karins\Desktop\Tresure.txt")
