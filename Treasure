@@ -20,8 +20,9 @@ def find(Tresure):
         while True:
             findTreasure=int(input("Where you want to move? [1- forward 2-backwards]"))
             move= int(input("where do you want to go?"))
-            counter= counter +1
+            global counter
             global seekk
+            counter=counter+1
             if (findTreasure == 1 ):
                 map.seek(map.tell()+move)
                 seekk = map.tell()
@@ -52,7 +53,6 @@ def find(Tresure):
 def check(Tresure):
     with open(Tresure) as map:
         treasureList = ["T", "R", "E", "A", "S", "U", "R", "E"]
-        #map.seek(seekk)
         value = map.read()
         value = value[seekk]
         if value in treasureList:
@@ -61,5 +61,5 @@ def check(Tresure):
             return False
 
 
-numFile(r"C:\Users\karins\Desktop\Tresure.txt")
-find(r"C:\Users\karins\Desktop\Tresure.txt")
+numFile(r"C:\Users\skari\Desktop\Tresure.txt")
+find(r"C:\Users\skari\Desktop\Tresure.txt")
